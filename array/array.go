@@ -12,32 +12,37 @@ func Sum(numbers []int) int {
 	return sum
 }
 
-func SumAll(numbers ...[]int) []int {
-	// sum := []int{0, 0}
-	// for _, number := range numbers1 {
-	// 	sum[0] += number
-	// }
-	// for _, number := range numbers2 {
-	// 	sum[1] += number
-	// }
-	// return sum
+func SumAll(numbersToSum ...[]int) []int {
 
-	// totalSum := []int{}
-	// for _, num := range numbers {
-	// 	sum := 0
-	// 	for _, n := range num {
-	// 		sum += n
-	// 	}
-	// 	totalSum = append(totalSum, sum)
+	// Providing a size of the sums array
+	// lenSlices := len(numbersToSum)
+	// sums := make([]int, lenSlices)
+
+	// for i, slice := range numbersToSum {
+	// 	sums[i] = Sum(slice)
 	// }
 
-	// return totalSum
+	//Without providing the size of the sums array
+	var sums []int
 
-	lenSlices := len(numbers)
-	sums := make([]int, lenSlices)
-
-	for i, slice := range numbers {
-		sums[i] = Sum(slice)
+	for _, numbers := range numbersToSum {
+		sums = append(sums, Sum(numbers))
 	}
+
+	return sums
+}
+
+func SumOfTails(numbersToSum ...[]int) []int {
+	var sums []int
+
+	for _, numbers := range numbersToSum {
+		if len(numbers) == 0 {
+			sums = append(sums, 0)
+		} else {
+			tail := numbers[1:]
+			sums = append(sums, Sum(tail))
+		}
+	}
+
 	return sums
 }
